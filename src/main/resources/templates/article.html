@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{layout}"	  >
+<head>
+<meta charset="utf-8"/>
+<title>Article</title>
+<link rel= "stylesheet"
+      type ="text/css"  
+      href= "../static/css/bootstrap.min.css"
+      th:href="@{css/bootstrap.min.css}"
+      />
+</head>
+<body>
+
+<div layout:fragment="content">
+
+	<div class="container " >
+	<form th:action="@{index}" method="get" >
+	   <label>Mot Clé:</label>
+	   <input type="text" name ="motCle" th:value="${motCle}"/>
+	   <button class ="btn btn-primary"> Chercher </button>
+	     <a  th:href="@{form}" class ="btn btn-success" >Nouvel Article</a>
+	</form>
+	</div>
+	<div class="container">
+	<table class="table">
+	  <thead>
+	   <tr>
+	   <th>ID</th>
+	   <th>Catégorie</th>
+	   <th>Désignation</th>
+	     <th>Unité</th>
+	   <th>Prix TTC </th>
+	   <th>Quantité minimal</th>
+	   <th>Action</th>
+	  </thead>
+	  <tbody>
+		  <tr th:each="a:${listeArticles}">
+		    <td th:text="${a.id_art}" ></td>
+		        <td th:text="${a.categorie.designation_cat}" ></td>
+		    <td th:text="${a.designation_art}" ></td>
+		       <td th:text="${a.unite_art}" ></td>
+		    <td th:text="${#numbers.formatDecimal(a.prix_art,0,3,'COMMA')}" ></td>
+		    <td th:text="${#numbers.formatDecimal(a.qte_stock,0,3,'COMMA')}" ></td>
+		    
+		    <td> <a  th:href="@{edit(id=${a.id_art})}"  >Editer</a></td>
+		    <td> <a onclick ="return confirm('Confirmez vous la suppression de cette Article?')"  th:href="@{delete(id=${a.id_art},page=${pageCourante},size=${size},motCle=${motCle})}"  >Supprimer</a></td>
+		  </tr>
+	  </tbody>
+	</table>
+	</div>
+	<div class= "container">
+		<ul class="nav nav-pills">
+			<li th:class="${pageCourante}==${status.index}?'active' :''" th:each="pa,status:${pages}"  >
+				<a   th:href="@{index(page=${status.index},size=${size},motCle=${motCle})}"  th:text="${status.index}"></a>
+			</li>
+		</ul>
+	</div>
+</div>
+</body>
+</html>

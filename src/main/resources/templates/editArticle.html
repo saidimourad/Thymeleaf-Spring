@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorate="~{layout}"
+>
+<head>
+<meta charset="utf-8"/>
+<title>Fiche Article</title>
+<link rel= "stylesheet"
+      type ="text/css"  
+      href= "../static/css/bootstrap.min.css"
+      th:href="@{css/bootstrap.min.css}"
+      />
+<link rel= "stylesheet"
+      type ="text/css"  
+      href= "../static/css/style.css"
+      th:href="@{css/style.css}"
+      />
+</head>
+<body>
+<div class="container" layout:fragment="content">
+<div class=" spacer col-md-6" >
+	<div class="panel panel-default">
+		<div class ="panel-heading">Saisie d'un Article  </div>
+		<div class= "panel-body">
+			<form th:action="@{save}" method="post">
+			<div class="form-group">
+			   <label class="control-label">ID</label>
+			   <input class="form-control" type="text" name="id_art" 
+			          th:value="${article.id_art}" readonly/>
+			   <span class ="red" th:errors ="${article.id_art}"></span>
+			</div>
+			<div class="form-group">
+			   <label class="control-label">Désignation</label>
+			   <input class="form-control" type="text" name="designation_art" 
+			          th:value="${article.designation_art}"/>
+			   <span class ="red" th:errors ="${article.designation_art}"></span>
+			</div>
+			<div class="form-group">
+			   <label class="control-label">Unite</label>
+			   <input class="form-control" type="text" name="unite_art" 
+			          th:value="${article.unite_art}"/>
+			   <span class ="red" th:errors ="${article.unite_art}"></span>
+			</div>
+				<div class="form-group">
+			   <label class="control-label">Qté min</label>
+			   <input class="form-control" type="text" name="qte_stock" 
+			          th:value="${article.qte_stock}"/>
+			    <span class ="red"  th:errors ="${article.qte_stock}"></span>
+			</div>
+			<div class="form-group">
+			   <label class="control-label">Prix</label>
+			   <input class="form-control" type="text" name="prix_art" 
+			          th:value="${article.prix_art}"/>
+			    <span class ="red"  th:errors ="${article.prix_art}"></span>
+			</div>
+			<div class="form-group">
+			   <label class="control-label"   >Catégorie</label>
+			   
+  <select class="form-control" name="categorie">
+                     
+                         <option th:each="c:${categorie}"
+                            th:value="${c.id}"
+                            th:utext="${c.designation_cat}"/>
+                            
+                  </select>
+
+			
+			   
+			   
+
+</div>
+			<div >
+			   
+			   <button class="btn btn-primary" type="submit"  >Enregistrer</button>
+			         
+			</div>			
+			</form>
+		</div>
+		<div class="panel-footer"> ----iset---		</div>
+		
+	</div>
+
+</div>
+</div>
+</body>
+</html>
